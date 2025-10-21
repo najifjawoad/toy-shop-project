@@ -3,7 +3,7 @@ import React from "react";
 const Slider = () => {
   return (
     <div className="w-1/2 mx-auto">
-      <div className="carousel  h-[350px] ">
+      <div className="carousel  h-[350px] rounded-full">
         <div id="item1" className="carousel-item w-full">
           
           <img
@@ -19,13 +19,13 @@ const Slider = () => {
         </div>
         <div id="item3" className="carousel-item w-full">
           <img
-            src="https://i.ibb.co.com/1GGQT3NL/Cute-Animal.webp"
+            src="https://i.ibb.co.com/x8SrnXGc/Lego-Classic-Bricks.webp"
             className="w-full"
           />
         </div>
         <div id="item4" className="carousel-item w-full">
           <img
-            src="https://i.ibb.co.com/CpJVPKND/Space-Adventure-Kit.jpg"
+            src="https://i.ibb.co.com/vvBwY73v/lego-robo.jpg"
             className="w-full"
           />
         </div>

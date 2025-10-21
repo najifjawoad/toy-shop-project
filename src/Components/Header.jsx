@@ -48,7 +48,7 @@ const Header = () => {
       </div>
       <div  className="navbar-end ">
         <img className="w-10 mr-3 rounded-full" src={userimg} alt="" />
-        <Link to='/auth/login' className="btn bg-[#E2B59A]">Log In</Link>
+        <Link to='/auth/login' className="btn bg-[#E2B59A] rounded-full">Log In</Link>
       </div>
     </div>
   );
