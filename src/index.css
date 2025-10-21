@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+.menu a.active{
+  
+   @apply text-[#FF9B45]
+
+}
