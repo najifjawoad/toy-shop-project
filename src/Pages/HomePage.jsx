@@ -1,9 +1,10 @@
-import React from "react";
+import React, {  } from "react";
 import DiscountSection from "../Components/Discounts";
 
 import Slider from "../Components/Slider";
 import NewArrivals from "../Components/NewArrival";
 import PopularToys from "../Components/Popular";
+
 
 const HomePage = () => {
   return (

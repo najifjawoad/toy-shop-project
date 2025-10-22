@@ -9,6 +9,9 @@ import ToyDetails from "../Layouts/ToyDetails";
 import PrivateRoute from "../Components/PrivateRoute";
 import Profile from "../Pages/Profile";
 import ForgotPassword from "../Components/ForgotPassword";
+import { BiError } from "react-icons/bi";
+import Errorpage from "../Components/Errorpage";
+import ToyGallery from "../Components/ToyGallery";
 
 const router = createBrowserRouter([
   {
@@ -58,14 +61,19 @@ const router = createBrowserRouter([
     loader: () => fetch("/toys.json"),
     hydrateFallbackElement: <Loading></Loading>,
   },
-  // {
-  //   path : '/Cart',
-  //   element : <h2>Cart section</h2>
+  {
+     path : '/gallery',
+     element: <PrivateRoute>
+      <ToyGallery></ToyGallery>
+     </PrivateRoute>,
+           loader: () => fetch("/toys.json"),
 
-  // },
+        hydrateFallbackElement: <Loading></Loading>,
+  },
+ 
   {
     path: "/*",
-    element: <h2>error khaise mama</h2>,
+    element: <Errorpage></Errorpage>
   },
 ]);
 export default router;

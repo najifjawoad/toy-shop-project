@@ -32,9 +32,9 @@ const LogIn = () => {
     const pass = event.target.password.value;
 
     logInUser(email, pass)
-      .then((res) => {
-        const user = res.user;
-        toast.success(`${user.email} Logged In Successfully`);
+      .then(() => {
+        
+        toast.success(`Logged In Successfully`);
         navigate(`${location.state ? location.state : "/home"}`);
       })
       .catch((error) => {
