@@ -4,34 +4,48 @@ import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
 
 const LogIn = () => {
+  const { logInUser } = use(AuthContext);
 
-   
-    const {logInUser} = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const location = useLocation();
-    const navigate = useNavigate();
-    
+ const handleLogIn = (event) => {
+  event.preventDefault();
 
-  const handleLogIn = (event) => {
-    event.preventDefault();
-    const email = event.target.email.value;
-    const pass = event.target.password.value;
-    logInUser(email,pass)
-    .then((res)=>
-        { 
-            const user = res.user;
-            
-            toast.success(user.email +" " +'Logged In Successfully');
-            navigate(`${location.state ? location.state : '/'}`);
-            // event.target.reset();
-        })
-        .catch((error)=>{
-            toast.error(error.message)
-        })
-    
+  const email = event.target.email.value;
+  const pass = event.target.password.value;
 
+  logInUser(email, pass)
+    .then((res) => {
+      const user = res.user;
+      toast.success(`${user.email} Logged In Successfully`);
+      navigate(`${location.state ? location.state : '/home'}`);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      let errorMessage = "An unknown error occurred.";
 
-  };
+      if (errorCode === "auth/user-not-found") {
+        errorMessage = "No user found with this email.";
+      } else if (errorCode === "auth/wrong-password") {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (errorCode === "auth/invalid-email") {
+        errorMessage = "Please enter a valid email address.";
+      } else if (errorCode === "auth/user-disabled") {
+        errorMessage = "This user account has been disabled.";
+      } else if (errorCode === "auth/too-many-requests") {
+        errorMessage =
+          "Too many failed login attempts. Please wait and try again later.";
+      } else if (errorCode === "auth/invalid-credential") {
+        errorMessage = "Invalid credentials. Please check your email and password.";
+      } else {
+        errorMessage = error.message; // fallback to original error
+      }
+
+      toast.error(errorMessage);
+    });
+};
+
 
   return (
     <div className="flex items-center min-h-screen  ">

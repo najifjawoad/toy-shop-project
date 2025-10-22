@@ -8,7 +8,7 @@ const PopularToys = () => {
 
   const popularToys = toys.filter((toy) => toy.isPopular);
 
-  console.log(toys);
+ 
 
   return (
     <div className="py-10 px-5 lg:px-20  min-h-screen">

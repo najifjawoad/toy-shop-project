@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { Outlet } from 'react-router';
+import { Navigate } from 'react-router';
 
 
 const HomLayout = () => {
@@ -19,6 +20,7 @@ const HomLayout = () => {
             <footer className='bg-[#957C62]'>
              <Footer></Footer>
             </footer>
+            <Navigate to='/home'></Navigate>
         </div>
     );
 };

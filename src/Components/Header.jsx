@@ -1,5 +1,4 @@
-import React, { use } from "react";
-
+import React, { use, useState } from "react"; 
 import userimg from "../assets/user.png";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
@@ -8,15 +7,19 @@ import { toast } from "react-toastify";
 const Header = () => {
   const { user, logOut } = use(AuthContext);
 
+
+  const [hovering, setHovering] = useState(false);
+
   const handleLogOut = () => {
-    logOut().then(()=>
-    {
-      toast.success('Logged Out Successfully')
-    } ).catch((error)=>
-    {
-      toast.error(error.message);
-    })
+    logOut()
+      .then(() => {
+        toast.success("Logged Out Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
+
   const links = (
     <>
       <NavLink className="mr-4 font-bold text-xl" to="/home">
@@ -25,15 +28,16 @@ const Header = () => {
       <NavLink className="mr-2 font-bold text-xl" to="/profile">
         My Profile
       </NavLink>
-     {/* {
+      {/* {
       user &&  <NavLink className="mr-2 font-bold text-xl" to="/cart">
        Cart
       </NavLink>
      } */}
     </>
   );
+
   return (
-    <div className="navbar    w-11/12 mx-auto py-8 ">
+    <div className="navbar w-11/12 mx-auto py-8">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -44,13 +48,12 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />
             </svg>
           </div>
           <ul
@@ -62,18 +65,43 @@ const Header = () => {
         </div>
         <a className="btn btn-ghost text-3xl text-[#E2B59A]">TOYZZZ</a>
       </div>
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end ">
-        <img className="w-10 mr-3 rounded-full" src={userimg} alt="" />
+
+      <div className="navbar-end">
+        
+        <div
+          className=" w-32 h-12 mr-2 flex items-center justify-center cursor-pointer"
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+        >
+          {user ? (
+            hovering ? (
+              <span className="text-xl text-pink-950 font-bold">{user.displayName}</span>
+            ) : (
+              <img
+                className="w-12 h-12 rounded-full object-cover"
+                src={user.photoURL}
+                alt="User"
+              />
+            )
+          ) : (
+            <img
+              className="w-12 h-12 rounded-full object-cover"
+              src={userimg}
+              alt="Guest"
+            />
+          )}
+        </div>
 
         {user ? (
           <button
             onClick={handleLogOut}
             className="btn bg-[#E2B59A] rounded-full"
           >
-            Log OUt
+            Log Out
           </button>
         ) : (
           <Link to="/auth/login" className="btn bg-[#E2B59A] rounded-full">
