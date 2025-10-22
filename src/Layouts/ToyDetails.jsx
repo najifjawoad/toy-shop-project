@@ -1,3 +1,5 @@
+// src/pages/ToyDetails.jsx
+
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
@@ -10,7 +12,6 @@ const ToyDetails = () => {
   const { id } = useParams(); // toyId from URL
   const [toy, setToy] = useState(null); // single toy
   const [carted, setCarted] = useState(false);
-  // const [allCart , setAllCart] = useState([]);
 
   useEffect(() => {
     const found = datas.find((t) => t.toyId === parseInt(id));
@@ -20,12 +21,17 @@ const ToyDetails = () => {
   const handleCartAdd = () => {
     toast.success("Item Added To Cart");
     setCarted(true);
-    // setAllCart.push(toy);
   };
 
   const handleCartRemove = () => {
     toast.success("Item Removed From Cart");
     setCarted(false);
+  };
+
+  const handleTryNowSubmit = (e) => {
+    e.preventDefault();
+    toast.success("Thanks! We'll get in touch with you soon.");
+    e.target.reset(); // clear form
   };
 
   if (!toy) {
@@ -68,13 +74,13 @@ const ToyDetails = () => {
   };
 
   return (
-    <div className="h-screen mx-auto bg-[#FFE1AF]">
+    <div className="min-h-screen bg-[#FFE1AF]">
       {/* Header section */}
       <Header />
 
       {/* Details section */}
       <div className="max-w-5xl mx-auto p-6">
-        <div className="card lg:card-side bg-base-100 shadow-xl">
+        <div className="card lg:card-side bg-[#B77466] shadow-xl">
           <figure className="lg:w-1/2 p-4">
             <img
               src={pictureURL}
@@ -102,8 +108,7 @@ const ToyDetails = () => {
                 {availableQuantity} pcs
               </p>
               <p>
-                <span className="font-semibold">Price:</span> $
-                {price?.toFixed(2)}
+                <span className="font-semibold">Price:</span> ${price?.toFixed(2)}
               </p>
             </div>
 
@@ -121,21 +126,19 @@ const ToyDetails = () => {
                 <span className="badge badge-success">New Arrival</span>
               )}
               {discount && (
-                <span className="badge badge-warning text-white">
-                  Discount
-                </span>
+                <span className="badge badge-warning text-white">Discount</span>
               )}
               {carted ? (
                 <button
                   onClick={handleCartRemove}
-                  className="btn btn-secondary rounded-full "
+                  className="btn btn-secondary rounded-full"
                 >
                   Remove From Cart
                 </button>
               ) : (
                 <button
                   onClick={handleCartAdd}
-                  className="btn btn-secondary rounded-full "
+                  className="btn btn-secondary rounded-full"
                 >
                   Add To Cart
                 </button>
@@ -143,6 +146,37 @@ const ToyDetails = () => {
             </div>
           </div>
         </div>
+
+       
+        <div className="mt-12 bg-[#B77466] p-6 rounded-lg shadow-md w-1/2 mx-auto">
+          <h3 className="text-2xl font-bold mb-4 text-center">Try Now</h3>
+          <form onSubmit={handleTryNowSubmit} className="space-y-4">
+            <div>
+              <label className="label font-semibold">Name</label>
+              <input
+                type="text"
+                name="name"
+                className="input input-bordered w-full"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div>
+              <label className="label font-semibold">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="input input-bordered w-full"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-primary w-full">
+              Try Now
+            </button>
+          </form>
+        </div>
+        {/* End Try Now Form */}
       </div>
 
       {/* Footer */}
