@@ -9,7 +9,7 @@ const LogIn = () => {
   const [email, setEmail] = useState("");
 
   const location = useLocation();
-  console.log(location);
+
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility state
