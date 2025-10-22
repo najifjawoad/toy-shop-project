@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
+import { FaEye, FaStar } from "react-icons/fa";
 import { MdNewReleases } from "react-icons/md";
+import { Link } from "react-router";
 
 const NewArrival = () => {
   const toys = useLoaderData();
@@ -52,7 +53,13 @@ const NewArrival = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <button className="btn btn-secondary btn-sm">Explore</button>
+                    <Link
+                    to={`/details/${toy.toyId}`}
+                    className="btn btn-sm btn-error text-white flex items-center gap-2"
+                  >
+                    <FaEye />
+                    View More
+                  </Link>
                 </div>
               </div>
             </div>

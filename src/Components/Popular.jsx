@@ -1,10 +1,14 @@
 import { useLoaderData } from "react-router-dom";
 import { FaStar, FaEye } from "react-icons/fa";
+import { Link, NavLink } from "react-router";
+
 
 const PopularToys = () => {
-
   const toys = useLoaderData();
+
   const popularToys = toys.filter((toy) => toy.isPopular);
+
+  console.log(toys);
 
   return (
     <div className="py-10 px-5 lg:px-20  min-h-screen">
@@ -48,10 +52,13 @@ const PopularToys = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <button className="btn btn-sm btn-error text-white flex items-center gap-2">
+                  <Link
+                    to={`/details/${toy.toyId}`}
+                    className="btn btn-sm btn-error text-white flex items-center gap-2"
+                  >
                     <FaEye />
                     View More
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

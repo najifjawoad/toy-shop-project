@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Provider/AuthContext';
+import { toast } from 'react-toastify';
 
 const Register = () => {
+
+
+    const {createUser,setUser} = use(AuthContext);
+
+   const handleRegister = (event) => {
+    event.preventDefault();
+
+    // const name = event.target.name.value;
+    // const photoURL = event.target.photoURL.value;
+    const email = event.target.email.value;
+    const pass = event.target.password.value;
+
+
+    createUser(email,pass)
+    .then((res)=>
+    {
+        toast.success('Registration Done')
+        
+        setUser(res.user);
+        
+    })
+    .catch((error)=>{
+        toast.error(error.message)
+    })
+
+   }
+
+
+
+
+
     return (
      <div className="flex items-center min-h-screen ">
       <div className="card bg-[#E2A16F] w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5 ">
         <h2 className="font-bold text-2xl text-center  ">
           Register Your Account
         </h2>
-        <form className="card-body">
+        <form onSubmit={handleRegister} className="card-body">
           <fieldset className="fieldset">
             {/* name */}
             <label className="label font-bold text-black my-3">Name</label>
@@ -58,7 +91,7 @@ const Register = () => {
               Accept Term & Conditions
             </label>
 
-            <button className="btn btn-neutral mt-4">Register</button>
+            <button  className="btn btn-neutral mt-4">Register</button>
             <p className="mt-5 text-center font-semibold">
               Already Have An Account ?{" "}
               <Link

@@ -1,14 +1,30 @@
-import React from "react";
+import React, { use } from "react";
 
-import userimg from '../assets/user.png'
+import userimg from "../assets/user.png";
 import { Link, NavLink } from "react-router";
-
+import { AuthContext } from "../Provider/AuthContext";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const { user, logOut } = use(AuthContext);
+
+  const handleLogOut = () => {
+    logOut().then(()=>
+    {
+      toast.success('Logged Out Successfully')
+    } ).catch((error)=>
+    {
+      toast.error(error.message);
+    })
+  };
   const links = (
     <>
-      <NavLink  className='mr-4 font-bold text-xl' to='/home'>Home</NavLink>
-      <NavLink className='mr-2 font-bold text-xl'  to='/profile'>My Profile</NavLink>
+      <NavLink className="mr-4 font-bold text-xl" to="/home">
+        Home
+      </NavLink>
+      <NavLink className="mr-2 font-bold text-xl" to="/profile">
+        My Profile
+      </NavLink>
     </>
   );
   return (
@@ -42,13 +58,23 @@ const Header = () => {
         <a className="btn btn-ghost text-3xl text-[#E2B59A]">TOYZZZ</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div  className="navbar-end ">
+      <div className="navbar-end ">
         <img className="w-10 mr-3 rounded-full" src={userimg} alt="" />
-        <Link to='/auth/login' className="btn bg-[#E2B59A] rounded-full">Log In</Link>
+
+        {user ? (
+          <button
+            onClick={handleLogOut}
+            className="btn bg-[#E2B59A] rounded-full"
+          >
+            Log OUt
+          </button>
+        ) : (
+          <Link to="/auth/login" className="btn bg-[#E2B59A] rounded-full">
+            Log In
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
+import { FaEye, FaStar } from "react-icons/fa";
 import { MdDiscount } from "react-icons/md";
+import { Link } from "react-router";
 
 const DiscountedToys = () => {
   const toys = useLoaderData();
@@ -9,7 +10,7 @@ const DiscountedToys = () => {
 
   return (
     <div className="py-10 px-5 lg:px-20  min-h-screen">
-      <h2 className="text-3xl lg:text-4xl font-bold text-center mb-10 text-primary">
+      <h2 className="text-3xl lg:text-4xl font-bold text-center mb-10 text-secondary">
         <MdDiscount className="inline-block mr-2 text-yellow-500" />
         Discounted Toys
       </h2>
@@ -38,7 +39,7 @@ const DiscountedToys = () => {
                 <p className="text-sm text-gray-500">{toy.description}</p>
 
                 <div className="flex justify-between items-center mt-2">
-                  <span className="text-primary font-semibold text-lg">${toy.price}</span>
+                  <span className="text-secondary font-semibold text-lg">${toy.price}</span>
                   <div className="flex items-center gap-1 text-yellow-400">
                     <FaStar />
                     <span className="text-sm text-gray-600">{toy.rating}</span>
@@ -50,7 +51,13 @@ const DiscountedToys = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <button className="btn btn-primary btn-sm">Buy Now</button>
+                    <Link
+                    to={`/details/${toy.toyId}`}
+                    className="btn btn-sm btn-error text-white flex items-center gap-2"
+                  >
+                    <FaEye />
+                    View More
+                  </Link>
                 </div>
               </div>
             </div>

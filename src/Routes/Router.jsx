@@ -5,6 +5,7 @@ import Loading from "../Components/Loading";
 import AuthLayout from "../Layouts/AuthLayout";
 import LogIn from "../Pages/LogIn";
 import Register from "../Pages/Register";
+import ToyDetails from "../Layouts/ToyDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,12 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+  },
+  {
+    path: "/details/:id",
+    element: <ToyDetails></ToyDetails>,
+    loader: () => fetch("/toys.json"),
+    hydrateFallbackElement: <Loading></Loading>,
   },
   {
     path: "/*",
