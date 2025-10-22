@@ -1,13 +1,13 @@
-import React, { use } from "react";
+import React, { useState, use } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Add this
 
 const Register = () => {
   const { createUser, setUser, upadteTheUser } = use(AuthContext);
-  
-
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // 👈 State to toggle password
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -49,20 +49,18 @@ const Register = () => {
             toast.error(error.message);
             setUser(user);
           });
+
         navigate("/home");
       })
       .catch((error) => {
         toast.error(error.message);
-        
       });
   };
 
   return (
-    <div className="flex items-center min-h-screen ">
-      <div className="card bg-[#E2A16F] w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5 ">
-        <h2 className="font-bold text-2xl text-center  ">
-          Register Your Account
-        </h2>
+    <div className="flex items-center min-h-screen">
+      <div className="card bg-[#E2A16F] w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5">
+        <h2 className="font-bold text-2xl text-center">Register Your Account</h2>
         <form onSubmit={handleRegister} className="card-body">
           <fieldset className="fieldset">
             {/* name */}
@@ -84,6 +82,7 @@ const Register = () => {
               placeholder="Photo URL"
               required
             />
+
             {/* email */}
             <label className="label font-bold text-black my-3">Email</label>
             <input
@@ -93,15 +92,24 @@ const Register = () => {
               placeholder="Email"
               required
             />
-            {/* pass */}
+
+            {/* password */}
             <label className="label font-bold text-black my-3">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="input"
-              placeholder="Password"
-              required
-            />
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"} // 👈 Toggle
+                className="input w-full pr-10"
+                placeholder="Password"
+                required
+              />
+              <span
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-lg text-gray-600"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
 
             <label className="label mt-4">
               <input
@@ -110,18 +118,16 @@ const Register = () => {
                 className="checkbox"
                 required
               />
-              Accept Term & Conditions
+              Accept Terms & Conditions
             </label>
 
             <button className="btn btn-neutral mt-4">Register</button>
+
             <p className="mt-5 text-center font-semibold">
-              Already Have An Account ?{" "}
-              <Link
-                to="/auth/login"
-                className="text-red-500  hover:text-red-800"
-              >
+              Already Have An Account?{" "}
+              <Link to="/auth/login" className="text-red-500 hover:text-red-800">
                 Log In
-              </Link>{" "}
+              </Link>
             </p>
           </fieldset>
         </form>

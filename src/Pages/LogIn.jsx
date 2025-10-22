@@ -1,58 +1,70 @@
-import React, { use } from "react";
+import React, { useState, use } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Added for toggle icon
 
 const LogIn = () => {
-  const { logInUser } = use(AuthContext);
+  const { logInUser, logInGoogle } = use(AuthContext);
 
   const location = useLocation();
   const navigate = useNavigate();
 
- const handleLogIn = (event) => {
-  event.preventDefault();
+  const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility state
 
-  const email = event.target.email.value;
-  const pass = event.target.password.value;
+  const handleLogInGoogle = () => {
+    logInGoogle()
+      .then(() => {
+        toast("Google Log In Successful");
+        navigate(`${location.state ? location.state : "/home"}`);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
-  logInUser(email, pass)
-    .then((res) => {
-      const user = res.user;
-      toast.success(`${user.email} Logged In Successfully`);
-      navigate(`${location.state ? location.state : '/home'}`);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      let errorMessage = "An unknown error occurred.";
+  const handleLogIn = (event) => {
+    event.preventDefault();
 
-      if (errorCode === "auth/user-not-found") {
-        errorMessage = "No user found with this email.";
-      } else if (errorCode === "auth/wrong-password") {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (errorCode === "auth/invalid-email") {
-        errorMessage = "Please enter a valid email address.";
-      } else if (errorCode === "auth/user-disabled") {
-        errorMessage = "This user account has been disabled.";
-      } else if (errorCode === "auth/too-many-requests") {
-        errorMessage =
-          "Too many failed login attempts. Please wait and try again later.";
-      } else if (errorCode === "auth/invalid-credential") {
-        errorMessage = "Invalid credentials. Please check your email and password.";
-      } else {
-        errorMessage = error.message; // fallback to original error
-      }
+    const email = event.target.email.value;
+    const pass = event.target.password.value;
 
-      toast.error(errorMessage);
-    });
-};
+    logInUser(email, pass)
+      .then((res) => {
+        const user = res.user;
+        toast.success(`${user.email} Logged In Successfully`);
+        navigate(`${location.state ? location.state : "/home"}`);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        let errorMessage = "An unknown error occurred.";
 
+        if (errorCode === "auth/user-not-found") {
+          errorMessage = "No user found with this email.";
+        } else if (errorCode === "auth/wrong-password") {
+          errorMessage = "Incorrect password. Please try again.";
+        } else if (errorCode === "auth/invalid-email") {
+          errorMessage = "Please enter a valid email address.";
+        } else if (errorCode === "auth/user-disabled") {
+          errorMessage = "This user account has been disabled.";
+        } else if (errorCode === "auth/too-many-requests") {
+          errorMessage =
+            "Too many failed login attempts. Please wait and try again later.";
+        } else if (errorCode === "auth/invalid-credential") {
+          errorMessage =
+            "Invalid credentials. Please check your email and password.";
+        } else {
+          errorMessage = error.message; // fallback to original error
+        }
+
+        toast.error(errorMessage);
+      });
+  };
 
   return (
-    <div className="flex items-center min-h-screen  ">
-      <div className="card bg-red-200 w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5 ">
-        <h2 className="font-bold text-2xl text-center  ">
-          Log In Your Account
-        </h2>
+    <div className="flex items-center min-h-screen">
+      <div className="card bg-red-200 w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5">
+        <h2 className="font-bold text-2xl text-center">Log In Your Account</h2>
         <form onSubmit={handleLogIn} className="card-body">
           <fieldset className="fieldset">
             <label className="label font-bold text-black my-3">Email</label>
@@ -63,36 +75,53 @@ const LogIn = () => {
               placeholder="Email"
               required
             />
+
             <label className="label font-bold text-black my-3">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="input"
-              placeholder="Password"
-              required
-            />
-            <div className="font-semibold">
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"} // 👈 Toggle between text/password
+                className="input w-full pr-10"
+                placeholder="Password"
+                required
+              />
+              <span
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-xl text-gray-500"
+                onClick={() => setShowPassword((prev) => !prev)} // 👈 Toggle logic
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
+            <div className="font-semibold mt-2">
               <a className="link link-hover">Forgot password?</a>
             </div>
 
             <button className="btn btn-neutral mt-4">Login</button>
+
             <p className="mt-5 text-center font-semiboldhe">
-              Don't Have An Account ?{" "}
+              Don't Have An Account?{" "}
               <Link
                 to="/auth/register"
-                className="text-red-500  hover:text-red-800"
+                className="text-red-500 hover:text-red-800"
               >
                 Register
-              </Link>{" "}
+              </Link>
             </p>
           </fieldset>
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+
+          <button
+            onClick={handleLogInGoogle}
+            type="button"
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"
               height="16"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
+              className="mr-2"
             >
               <g>
                 <path d="m0 0H512V512H0" fill="#fff"></path>

@@ -7,6 +7,7 @@ import LogIn from "../Pages/LogIn";
 import Register from "../Pages/Register";
 import ToyDetails from "../Layouts/ToyDetails";
 import PrivateRoute from "../Components/PrivateRoute";
+import Profile from "../Pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <h2>my profile</h2>,
+        element: <Profile></Profile>,
       },
     ],
   },
