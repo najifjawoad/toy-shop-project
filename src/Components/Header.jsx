@@ -63,7 +63,7 @@ const Header = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-3xl text-[#E2B59A]">TOYZZZ</a>
+        <Link to='/home' className="btn btn-ghost text-3xl text-[#E2B59A]">TOYZZZ</Link>
       </div>
 
       <div className="navbar-center hidden lg:flex">

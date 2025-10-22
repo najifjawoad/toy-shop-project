@@ -8,6 +8,7 @@ import Register from "../Pages/Register";
 import ToyDetails from "../Layouts/ToyDetails";
 import PrivateRoute from "../Components/PrivateRoute";
 import Profile from "../Pages/Profile";
+import ForgotPassword from "../Components/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         path: "/auth/register",
         element: <Register></Register>,
       },
+      {
+        path : '/auth/forgot-password',
+        element: <ForgotPassword></ForgotPassword>
+      }
     ],
   },
   {

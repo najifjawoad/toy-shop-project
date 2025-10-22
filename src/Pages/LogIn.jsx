@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Added for toggle ico
 
 const LogIn = () => {
   const { logInUser, logInGoogle } = use(AuthContext);
+  const [email, setEmail] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -74,27 +75,35 @@ const LogIn = () => {
               className="input"
               placeholder="Email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} 
             />
 
             <label className="label font-bold text-black my-3">Password</label>
             <div className="relative">
               <input
                 name="password"
-                type={showPassword ? "text" : "password"} // 👈 Toggle between text/password
+                type={showPassword ? "text" : "password"} 
                 className="input w-full pr-10"
                 placeholder="Password"
                 required
               />
               <span
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-xl text-gray-500"
-                onClick={() => setShowPassword((prev) => !prev)} // 👈 Toggle logic
+                onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
 
             <div className="font-semibold mt-2">
-              <a className="link link-hover">Forgot password?</a>
+              <Link
+                to="/auth/forgot-password"
+                state={{ email }}
+                className="link link-hover"
+              >
+                Forgot password?
+              </Link>
             </div>
 
             <button className="btn btn-neutral mt-4">Login</button>
