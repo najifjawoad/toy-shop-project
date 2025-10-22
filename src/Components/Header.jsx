@@ -25,6 +25,11 @@ const Header = () => {
       <NavLink className="mr-2 font-bold text-xl" to="/profile">
         My Profile
       </NavLink>
+     {/* {
+      user &&  <NavLink className="mr-2 font-bold text-xl" to="/cart">
+       Cart
+      </NavLink>
+     } */}
     </>
   );
   return (

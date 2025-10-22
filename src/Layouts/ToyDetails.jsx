@@ -10,6 +10,7 @@ const ToyDetails = () => {
   const { id } = useParams(); // toyId from URL
   const [toy, setToy] = useState(null); // single toy
   const [carted, setCarted] = useState(false);
+  // const [allCart , setAllCart] = useState([]);
 
   useEffect(() => {
     const found = datas.find((t) => t.toyId === parseInt(id));
@@ -19,6 +20,7 @@ const ToyDetails = () => {
   const handleCartAdd = () => {
     toast.success("Item Added To Cart");
     setCarted(true);
+    // setAllCart.push(toy);
   };
 
   const handleCartRemove = () => {

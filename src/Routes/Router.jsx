@@ -6,6 +6,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 import LogIn from "../Pages/LogIn";
 import Register from "../Pages/Register";
 import ToyDetails from "../Layouts/ToyDetails";
+import PrivateRoute from "../Components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -41,10 +42,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/details/:id",
-    element: <ToyDetails></ToyDetails>,
+    element: (
+      <PrivateRoute>
+        <ToyDetails></ToyDetails>
+      </PrivateRoute>
+    ),
     loader: () => fetch("/toys.json"),
     hydrateFallbackElement: <Loading></Loading>,
   },
+  // {
+  //   path : '/Cart',
+  //   element : <h2>Cart section</h2>
+
+  // },
   {
     path: "/*",
     element: <h2>error khaise mama</h2>,

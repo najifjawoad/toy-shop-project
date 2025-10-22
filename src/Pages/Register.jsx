@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 import { toast } from 'react-toastify';
 
@@ -8,28 +8,45 @@ const Register = () => {
 
     const {createUser,setUser} = use(AuthContext);
 
-   const handleRegister = (event) => {
-    event.preventDefault();
+    const navigate = useNavigate();
 
-    // const name = event.target.name.value;
-    // const photoURL = event.target.photoURL.value;
-    const email = event.target.email.value;
-    const pass = event.target.password.value;
+  const handleRegister = (event) => {
+  event.preventDefault();
+
+  const email = event.target.email.value;
+  const pass = event.target.password.value;
 
 
-    createUser(email,pass)
-    .then((res)=>
-    {
-        toast.success('Registration Done')
-        
-        setUser(res.user);
-        
+  const errors = [];
+
+  if (pass.length < 6) {
+    errors.push("Password must be at least 6 characters long.");
+  }
+
+  if (!/[A-Z]/.test(pass)) {
+    errors.push("Password must include at least one uppercase letter.");
+  }
+
+  if (!/[a-z]/.test(pass)) {
+    errors.push("Password must include at least one lowercase letter.");
+  }
+
+  if (errors.length > 0) {
+    errors.forEach((err) => toast.error(err));
+    return;
+  }
+
+ 
+  createUser(email, pass)
+    .then((res) => {
+      toast.success("Registration Done");
+      setUser(res.user);
+      navigate('/home');
     })
-    .catch((error)=>{
-        toast.error(error.message)
-    })
-
-   }
+    .catch((error) => {
+      toast.error(error.message);
+    });
+};
 
 
 
