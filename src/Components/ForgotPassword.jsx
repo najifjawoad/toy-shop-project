@@ -6,6 +6,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 import { toast } from "react-toastify";
 import app from "../firebase/firebase.config";
+import { Helmet } from "react-helmet-async";
 const auth = getAuth(app);
 const ForgotPassword = () => {
   const location = useLocation();
@@ -42,6 +43,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="flex items-center min-h-screen justify-center">
+            <Helmet>
+              <title>Reset Password</title>
+              <link rel="canonical" href="https://www.tacobell.com/" />
+            </Helmet>
       <div className="card w-full max-w-sm shadow-2xl bg-base-100 p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Reset Password</h2>
         <form onSubmit={handleReset}>

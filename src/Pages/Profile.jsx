@@ -3,7 +3,8 @@ import { AuthContext } from "../Provider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import { FaUserEdit } from "react-icons/fa";
-import userImg from '../assets/user.png'
+import userImg from "../assets/user.png";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const { user } = use(AuthContext);
@@ -25,7 +26,9 @@ const Profile = () => {
         displayName: name,
         photoURL: photoURL,
       });
-      toast.success("Profile updated successfully. Please reload to see changes.");
+      toast.success(
+        "Profile updated successfully. Please reload to see changes."
+      );
     } catch (error) {
       toast.error(error.message || "Failed to update profile.");
     } finally {
@@ -35,27 +38,33 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-[#FFE1AF] p-6 flex flex-col items-center justify-center">
-      <div className="card w-full max-w-md bg-white shadow-lg p-6">
-       
-        <div className="text-center mb-6">
+      <Helmet>
+        <title>Profile</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
 
-            {
-                user ?  <img
-            src={user?.photoURL}
-            alt="User"
-            className="w-24 h-24 rounded-full mx-auto border-4 border-primary object-cover"
-          /> :  <img
-            src={userImg}
-            alt="User"
-            className="w-24 h-24 rounded-full mx-auto border-4 border-primary object-cover"
-          />
-            }
-         
-          <h2 className="text-xl font-bold mt-2">{user?.displayName || "No Name"}</h2>
+      <div className="card w-full max-w-md bg-white shadow-lg p-6">
+        <div className="text-center mb-6">
+          {user ? (
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="w-24 h-24 rounded-full mx-auto border-4 border-primary object-cover"
+            />
+          ) : (
+            <img
+              src={userImg}
+              alt="User"
+              className="w-24 h-24 rounded-full mx-auto border-4 border-primary object-cover"
+            />
+          )}
+
+          <h2 className="text-xl font-bold mt-2">
+            {user?.displayName || "No Name"}
+          </h2>
           <p className="text-gray-600">{user?.email}</p>
         </div>
 
-       
         <form onSubmit={handleUpdate} className="space-y-4 border-t pt-4">
           <h3 className="text-lg font-semibold text-center">Edit Your Info</h3>
 

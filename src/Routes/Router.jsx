@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import HomLayout from "../Layouts/HomLayout";
 import HomePage from "../Pages/HomePage";
 import Loading from "../Components/Loading";
@@ -9,71 +9,77 @@ import ToyDetails from "../Layouts/ToyDetails";
 import PrivateRoute from "../Components/PrivateRoute";
 import Profile from "../Pages/Profile";
 import ForgotPassword from "../Components/ForgotPassword";
-import { BiError } from "react-icons/bi";
 import Errorpage from "../Components/Errorpage";
 import ToyGallery from "../Components/ToyGallery";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomLayout></HomLayout>,
+    element: <HomLayout />,
     children: [
+      // ✅ Redirect root "/" to "/home"
       {
-        path: "/home",
-        element: <HomePage></HomePage>,
-        loader: () => fetch("/toys.json"),
-
-        hydrateFallbackElement: <Loading></Loading>,
+        index: true,
+        element: <Navigate to="/home" replace />,
       },
       {
-        path: "/profile",
-        element: <PrivateRoute>
-          <Profile></Profile>
-        </PrivateRoute>,
+        path: "home",
+        element: <HomePage />,
+        loader: () => fetch("/toys.json"),
+        hydrateFallbackElement: <Loading />,
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },
   {
     path: "/auth",
-    element: <AuthLayout></AuthLayout>,
+    element: <AuthLayout />,
     children: [
       {
-        path: "/auth/login",
-        element: <LogIn></LogIn>,
+        path: "login",
+        element: <LogIn />,
       },
       {
-        path: "/auth/register",
-        element: <Register></Register>,
+        path: "register",
+        element: <Register />,
       },
       {
-        path : '/auth/forgot-password',
-        element: <ForgotPassword></ForgotPassword>
-      }
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
     ],
   },
   {
     path: "/details/:id",
     element: (
       <PrivateRoute>
-        <ToyDetails></ToyDetails>
+        <ToyDetails />
       </PrivateRoute>
     ),
     loader: () => fetch("/toys.json"),
-    hydrateFallbackElement: <Loading></Loading>,
+    hydrateFallbackElement: <Loading />,
   },
   {
-     path : '/gallery',
-     element: <PrivateRoute>
-      <ToyGallery></ToyGallery>
-     </PrivateRoute>,
-           loader: () => fetch("/toys.json"),
-
-        hydrateFallbackElement: <Loading></Loading>,
+    path: "/gallery",
+    element: (
+      <PrivateRoute>
+        <ToyGallery />
+      </PrivateRoute>
+    ),
+    loader: () => fetch("/toys.json"),
+    hydrateFallbackElement: <Loading />,
   },
- 
   {
-    path: "/*",
-    element: <Errorpage></Errorpage>
+    path: "*",
+    element: <Errorpage />,
   },
 ]);
+
 export default router;

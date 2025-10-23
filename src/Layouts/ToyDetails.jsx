@@ -6,6 +6,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const ToyDetails = () => {
   const datas = useLoaderData(); // all toys
@@ -75,6 +76,10 @@ const ToyDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#FFE1AF]">
+            <Helmet>
+              <title>Toy Details</title>
+              <link rel="canonical" href="https://www.tacobell.com/" />
+            </Helmet>
       {/* Header section */}
       <Header />
 

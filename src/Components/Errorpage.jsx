@@ -3,10 +3,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-pink-100 p-4">
+            <Helmet>
+              <title>Error Page</title>
+              <link rel="canonical" href="https://www.tacobell.com/" />
+            </Helmet>
       <div className="text-center max-w-md space-y-6">
         <div className="text-7xl animate-bounce">🚀</div>
 

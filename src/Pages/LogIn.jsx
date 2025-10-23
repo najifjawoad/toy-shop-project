@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Added for toggle icon
+import { Helmet } from "react-helmet-async";
 
 const LogIn = () => {
   const { logInUser, logInGoogle } = use(AuthContext);
@@ -65,6 +66,10 @@ const LogIn = () => {
 
   return (
     <div className="flex items-center min-h-screen">
+      <Helmet>
+        <title>Log In</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="card bg-red-200 w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5">
         <h2 className="font-bold text-2xl text-center">Log In Your Account</h2>
         <form onSubmit={handleLogIn} className="card-body">

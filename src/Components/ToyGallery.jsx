@@ -4,6 +4,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Helmet } from "react-helmet-async";
 
 const Wishlist = () => {
   const toys = useLoaderData(); // fetched toy data
@@ -24,7 +25,12 @@ const Wishlist = () => {
 
   return (
     <div className="bg-[#FFF1F1]">
-        <Header></Header>
+      <Helmet>
+        <title>My Wishlist</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
+
+      <Header></Header>
       <div className="max-w-6xl mx-auto p-6">
         <h2 className="text-3xl font-bold text-center mb-6">Your Wishlist</h2>
 

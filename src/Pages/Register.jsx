@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Add this
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, setUser, upadteTheUser } = use(AuthContext);
@@ -59,6 +60,10 @@ const Register = () => {
 
   return (
     <div className="flex items-center min-h-screen">
+            <Helmet>
+              <title>Register</title>
+              <link rel="canonical" href="https://www.tacobell.com/" />
+            </Helmet>
       <div className="card bg-[#E2A16F] w-full mx-auto max-w-sm shrink-0 shadow-2xl py-5">
         <h2 className="font-bold text-2xl text-center">Register Your Account</h2>
         <form onSubmit={handleRegister} className="card-body">
