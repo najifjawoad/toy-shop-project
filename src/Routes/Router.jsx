@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomLayout />,
     children: [
-      // ✅ Redirect root "/" to "/home"
+      
       {
         index: true,
         element: <Navigate to="/home" replace />,

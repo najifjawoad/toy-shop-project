@@ -2,13 +2,13 @@ import React, { useState, use } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Add this
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, setUser, upadteTheUser } = use(AuthContext);
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false); // 👈 State to toggle password
+  const [showPassword, setShowPassword] = useState(false); 
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -103,7 +103,7 @@ const Register = () => {
             <div className="relative">
               <input
                 name="password"
-                type={showPassword ? "text" : "password"} // 👈 Toggle
+                type={showPassword ? "text" : "password"} 
                 className="input w-full pr-10"
                 placeholder="Password"
                 required

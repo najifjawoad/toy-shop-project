@@ -181,7 +181,7 @@ const ToyDetails = () => {
             </button>
           </form>
         </div>
-        {/* End Try Now Form */}
+       
       </div>
 
       {/* Footer */}

@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from "react-helmet-async";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Wishlist = () => {
-  const toys = useLoaderData(); // fetched toy data
+  const toys = useLoaderData(); 
   const [wishlist, setWishlist] = useState([]);
+
+
+  useEffect(() => {
+    Aos.init({
+      duration: 800, 
+      offset: 100,   
+      easing: "ease-in-out",
+      once: true,    
+    });
+  }, []);
 
   const toggleWishlist = (toy) => {
     const exists = wishlist.find((item) => item.toyId === toy.toyId);
@@ -30,19 +42,35 @@ const Wishlist = () => {
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
 
-      <Header></Header>
-      <div className="max-w-6xl mx-auto p-6">
-        <h2 className="text-3xl font-bold text-center mb-6">Your Wishlist</h2>
+      <Header />
 
+      <div className="max-w-6xl mx-auto p-6">
+        <h2
+          className="text-3xl font-bold text-center mb-6"
+          data-aos="fade-down"
+        >
+          Your Wishlist
+        </h2>
+
+        {/* Wishlist Section */}
         {wishlist.length === 0 ? (
-          <div className="text-center text-gray-500">
+          <div
+            className="text-center text-gray-500"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Your wishlist is empty.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {wishlist.map((toy) => (
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+            data-aos="fade-up"
+          >
+            {wishlist.map((toy, index) => (
               <div
                 key={toy.toyId}
+                data-aos="zoom-in"
+                data-aos-delay={index * 100}
                 className="card bg-[#E9B3FB] shadow-xl hover:shadow-2xl transition-all"
               >
                 <figure className="p-4">
@@ -73,12 +101,23 @@ const Wishlist = () => {
           </div>
         )}
 
+        {/* Browse Toys Section */}
         <div className="mt-10">
-          <h3 className="text-2xl font-semibold mb-3">Browse Toys</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {toys.map((toy) => (
+          <h3
+            className="text-2xl font-semibold mb-3"
+            data-aos="fade-right"
+          >
+            Browse Toys
+          </h3>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+            data-aos="fade-up"
+          >
+            {toys.map((toy, index) => (
               <div
                 key={toy.toyId}
+                data-aos="flip-left"
+                data-aos-delay={index * 100}
                 className="card bg-base-100 border hover:shadow-md transition-all"
               >
                 <figure className="p-4">
@@ -114,7 +153,7 @@ const Wishlist = () => {
         </div>
       </div>
 
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

@@ -1,26 +1,52 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect } from "react";
+import { useLoaderData, Link } from "react-router-dom";
 import { FaEye, FaStar } from "react-icons/fa";
 import { MdNewReleases } from "react-icons/md";
-import { Link } from "react-router";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const NewArrival = () => {
   const toys = useLoaderData();
   const newToys = toys.filter((toy) => toy.newArrival);
 
+ 
+  useEffect(() => {
+    Aos.init({
+      duration: 800,  
+      offset: 100,     
+      easing: "ease-in-out",
+      once: true,     
+    });
+  }, []);
+
   return (
-    <div className="py-10 px-5 lg:px-20  min-h-screen">
-      <h2 className="text-3xl lg:text-4xl font-bold text-center mb-10 text-secondary">
+    <div className="py-10 px-5 lg:px-20 min-h-screen bg-[#FFF8FC]">
+      <h2
+        className="text-3xl lg:text-4xl font-bold text-center mb-10 text-secondary"
+        data-aos="fade-down"
+      >
         <MdNewReleases className="inline-block mr-2 text-accent" />
         New Arrivals
       </h2>
 
       {newToys.length === 0 ? (
-        <p className="text-center text-lg">No new toys available.</p>
+        <p
+          className="text-center text-lg text-gray-600"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          No new toys available.
+        </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newToys.map((toy) => (
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          data-aos="fade-up"
+        >
+          {newToys.map((toy, index) => (
             <div
               key={toy.toyId}
+              data-aos="zoom-in"
+              data-aos-delay={index * 100} 
               className="card bg-base-200 shadow-xl border border-secondary/20 hover:shadow-2xl transition"
             >
               <figure className="px-4 pt-4">
@@ -33,11 +59,28 @@ const NewArrival = () => {
               <div className="card-body">
                 <h3 className="card-title text-lg font-bold text-secondary">
                   {toy.toyName}
-                  <div className="badge badge-accent">New</div>
+                  <div
+                    className="badge badge-accent"
+                    data-aos="fade-left"
+                    data-aos-delay={index * 150 + 200}
+                  >
+                    New
+                  </div>
                 </h3>
-                <p className="text-sm text-gray-500">{toy.description}</p>
 
-                <div className="flex justify-between items-center mt-2">
+                <p
+                  className="text-sm text-gray-500"
+                  data-aos="fade-right"
+                  data-aos-delay={index * 150 + 100}
+                >
+                  {toy.description}
+                </p>
+
+                <div
+                  className="flex justify-between items-center mt-2"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 120 + 100}
+                >
                   <span className="text-secondary font-semibold text-lg">
                     ${toy.price}
                   </span>
@@ -47,13 +90,21 @@ const NewArrival = () => {
                   </div>
                 </div>
 
-                <div className="text-sm text-gray-600 mt-2">
+                <div
+                  className="text-sm text-gray-600 mt-2"
+                  data-aos="fade-right"
+                  data-aos-delay={index * 120 + 150}
+                >
                   <span className="font-medium">Category:</span>{" "}
                   {toy.subCategory}
                 </div>
 
-                <div className="card-actions justify-end mt-4">
-                    <Link
+                <div
+                  className="card-actions justify-end mt-4"
+                  data-aos="fade-left"
+                  data-aos-delay={index * 150 + 250}
+                >
+                  <Link
                     to={`/details/${toy.toyId}`}
                     className="btn btn-sm btn-error text-white flex items-center gap-2"
                   >

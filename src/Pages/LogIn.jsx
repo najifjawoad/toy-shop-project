@@ -2,7 +2,7 @@ import React, { useState, use } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
 import { toast } from "react-toastify";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 Added for toggle icon
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 
 const LogIn = () => {
@@ -13,7 +13,7 @@ const LogIn = () => {
 
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility state
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogInGoogle = () => {
     logInGoogle()
@@ -57,7 +57,7 @@ const LogIn = () => {
           errorMessage =
             "Invalid credentials. Please check your email and password.";
         } else {
-          errorMessage = error.message; // fallback to original error
+          errorMessage = error.message; 
         }
 
         toast.error(errorMessage);
