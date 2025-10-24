@@ -1,7 +1,7 @@
 Project Name : ToyTopia – A Local Kids Toy Store Platform .
 Purpose : "ToyTopia is a fun and friendly website where parents can find and buy toys for their kids from local sellers. It helps small toy shops reach more families and makes shopping easy and joyful."
 Live URL : https://toy-topia-9ca5c.web.app/home
-Alternative Live URL : https://toy-topia-project.netlify.app/home 
+Alternative Live URL : https://toy-topia-project.netlify.app/home
 Key Features : Responsive  Playful Branding , Offer & Discount Section , New Arrival Section , Popular Toys Section , Wishlist Section ,Responsive  Design , Local Toy Listings ,Secure Login etc.
 NPM Packages : 
 react : 	Core React library for building UI
