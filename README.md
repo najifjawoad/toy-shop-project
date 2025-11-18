@@ -41,7 +41,7 @@ ToyTopia is a toy marketplace-style frontend project designed to display toys in
 * Fully responsive modern UI
 * Category-based toy browsing
 * Dynamic routing system
-* User authentication system (if enabled)
+* User authentication system 
 * Card-based product display
 * Hover animations and smooth transitions
 * Secure Authentication implemented
@@ -125,9 +125,6 @@ http://localhost:5173/
 ## 🔗 Useful Links
 
 * **Live Website:** [https://toy-topia-project.netlify.app/home](https://toy-topia-project.netlify.app/home)
-* **Repository:** *Add your GitHub repo link here*
-* **Screenshot:** *Add your screenshot link*
 
----
 
-If you'd like, I can also generate a Bengali version or enhance the formatting with badges!
+
